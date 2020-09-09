@@ -9,9 +9,9 @@ import './place.css';
 
 
 const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
-  const [ faster, setFaster ] = useState(true);
-  const [ time, setTime ] = useState('');
-  const [ selfService, setSelfService ] = useState(false);
+  const [ faster, setFaster ] = useState(JSON.parse((localStorage.getItem('settings') || 'null'))[itemId]['faster']);
+  const [ time, setTime ] = useState(JSON.parse((localStorage.getItem('settings') || 'null'))[itemId]['time']);
+  const [ selfService, setSelfService ] = useState(JSON.parse((localStorage.getItem('settings') || 'null'))[itemId]['selfService']);
   const area = foodAreas.filter(area => area.id === areaId)[0];
   const item = area.items.filter(item => item.id === itemId)[0];
 
@@ -108,13 +108,22 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
         <div className="Place__choice-item">
           <span>Как можно быстрее</span>
           <Checkbox 
-            checked={faster} 
+            checked={JSON.parse((localStorage.getItem('settings') || 'null'))[itemId]['faster']} 
             onToggle={() => {
               if (faster) {
                 setFaster(false);
+                const set = JSON.parse((localStorage.getItem('settings') || {'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}})) || localStorage.setItem('settings', JSON.stringify({'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}}));
+
+                set[itemId]['faster'] = false;
+
+                localStorage.setItem('settings', JSON.stringify(set));
               } else {
-                setTime('');
                 setFaster(true);
+                const set = JSON.parse((localStorage.getItem('settings') || {'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}})) || localStorage.setItem('settings', JSON.stringify({'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}}));
+
+                set[itemId]['faster'] = true;
+
+                localStorage.setItem('settings', JSON.stringify(set));
               }
             }}
           />
@@ -122,29 +131,60 @@ const Basket = ({ match: { params: { areaId, itemId }}, foodAreas, order }) => {
         <div className="Place__choice-item">
           <span>Назначить</span>
           <input
-            value={time}
+            value={JSON.parse((localStorage.getItem('settings') || 'null'))[itemId]['time']}
             type="time"
             onFocus={() => {
               setFaster(false);
+              const set = JSON.parse((localStorage.getItem('settings') || {'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}})) || localStorage.setItem('settings', JSON.stringify({'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}}));
+
+              set[itemId]['faster'] = false;
+
+              localStorage.setItem('settings', JSON.stringify(set));
             }}
             onChange={event => {
               setFaster(false);
               setTime(event.target.value);
+              const set = JSON.parse((localStorage.getItem('settings') || {'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}})) || localStorage.setItem('settings', JSON.stringify({'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}}));
+
+              set[itemId]['time'] = event.target.value;
+              set[itemId]['faster'] = false;
+
+              localStorage.setItem('settings', JSON.stringify(set));
+              event.target.value = JSON.parse((localStorage.getItem('settings') || 'null'))[itemId]['time'];
             }}
             onBlur={() => {
               if (time) {
                 setFaster(false);
+                const set = JSON.parse((localStorage.getItem('settings') || {'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}})) || localStorage.setItem('settings', JSON.stringify({'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}}));
+
+                set[itemId]['faster'] = false;
+
+                localStorage.setItem('settings', JSON.stringify(set));
               }
             }}
           />
         </div>
         <div className="Place__choice-item">
           <h3>С собой</h3>
-          <Checkbox checked={selfService} onToggle={() => setSelfService(!selfService)} />
+          <Checkbox checked={selfService} onToggle={
+            () => {setSelfService(!selfService);
+            const set = JSON.parse((localStorage.getItem('settings') || {'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}})) || localStorage.setItem('settings', JSON.stringify({'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}}));
+
+            set[itemId]['selfService'] = !selfService;
+
+            localStorage.setItem('settings', JSON.stringify(set));
+          }} />
         </div>
         <div className="Place__choice-item">
           <h3>На месте</h3>
-          <Checkbox checked={!selfService} onToggle={() => setSelfService(!setSelfService)} />
+          <Checkbox checked={!selfService} onToggle={
+            () => {setSelfService(!selfService);
+            const set = JSON.parse((localStorage.getItem('settings') || {'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}})) || localStorage.setItem('settings', JSON.stringify({'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}}));
+
+            set[itemId]['selfService'] = !selfService;
+
+            localStorage.setItem('settings', JSON.stringify(set));
+          }} />
         </div>
       </div>
       <footer className="Place__footer">

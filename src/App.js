@@ -127,7 +127,7 @@ const foodsMap = FOOD_AREAS.reduce((result, area) => {
 const App = () => {
 	const [ orderStatuses, setOrderStatuses ] = useState(JSON.parse((localStorage.getItem('orderStatuses') || 'null')) || {});
 	const [ order, setOrder ] = useState(JSON.parse((localStorage.getItem('orders') || 'null')) || {});
-
+	localStorage.getItem('settings') || localStorage.setItem('settings', JSON.stringify({'kfc': {'faster': true ,'time': '00:00', 'selfService': true}, 'macdak': {'faster': true ,'time': '00:00', 'selfService': true}, 'subway': {'faster': true ,'time': '00:00', 'selfService': true}, 'burger-king': {'faster': true ,'time': '00:00', 'selfService': true}}));
 	return (
 		<Router>
 			<Switch>
