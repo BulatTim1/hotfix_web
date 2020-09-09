@@ -15,10 +15,10 @@
     "cross-env": "^5.2.0",
     "react-hot-loader": "^4.9.0",
     "react-scripts": "^3.1.2",
-    "surge": "^0.21.3"
+    "surge": "^0.21.6"
   },
   "dependencies": {
-    "@vkontakte/icons": "^1.40.0",
+    "@vkontakte/icons": "^1.10.0",
     "@vkontakte/vk-connect": "^1.6.5",
     "@vkontakte/vkui": "^2.30.7",
     "accounting": "^0.4.1",
