@@ -1,0 +1,39 @@
+:root {
+  /* fonts */
+  --font-ios: -apple-system, Helvetica Neue, Arial;
+  --font-android: Roboto, Arial;
+  --font-common: -apple-system, Roboto, Helvetica Neue, Arial;
+
+  /* easings */
+  --ios-easing: cubic-bezier(.36, .66, .04, 1);
+  --android-easing: cubic-bezier(.4, 0, .2, 1);
+
+  /* sizes */
+  --tabbar_height: 48px;
+  --panelheader_height_ios: 44px;
+  --panelheader_height_android: 56px;
+  --modalheader_height_ios: 52px;
+  --modalheader_height_android: 56px;
+  --search_default_height_ios: 32px;
+
+  /* colors */
+  --white: #fff;
+
+  /* iOS insets */
+  --safe-area-inset-top: 20px;
+  --safe-area-inset-bottom: 0px;
+}
+
+@supports (padding-top: constant(safe-area-inset-top)) {
+  :root {
+    --safe-area-inset-top: constant(safe-area-inset-top);
+    --safe-area-inset-bottom: constant(safe-area-inset-bottom);
+  }
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+  :root {
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  }
+}

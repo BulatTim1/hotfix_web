@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/lib/webview.ts"],"names":["vkConnect","isWebView"],"mappings":"AAAA,OAAOA,SAAP,MAAsB,uBAAtB;AAEA,OAAO,IAAMC,SAAkB,GAAGD,SAAS,CAACC,SAAV,EAA3B","sourcesContent":["import vkConnect from '@vkontakte/vk-connect';\n\nexport const isWebView: boolean = vkConnect.isWebView();\n"],"file":"webview.js"}
