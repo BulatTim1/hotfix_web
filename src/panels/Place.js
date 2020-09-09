@@ -23,7 +23,6 @@ const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area }) 
 
         return result + parseInt(price) * parseInt(count);
       }, 0);
-
     return accounting.formatNumber(result, 0, ' ');
   }, [ order, item ]);
   return (
@@ -100,7 +99,7 @@ const Place = ({ item, order, onIncrementPosition, onDecrementPosition, area }) 
           </li>
         )))}
       </ul>
-      {localStorage.getItem('orders') != "{}" &&
+      {localStorage.getItem('orders') != "{}" && localStorage.getItem('orders') != null &&
       <footer className="Place__footer">
         <Link to={`/basket/${area.id}/${item.id}`} className="Place__order">
           Оформить заказ ({price})
